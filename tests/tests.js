@@ -2726,6 +2726,15 @@ testRecurring('testStrNWeekDay', rrulestr(
                        datetimeUTC(1998, 1, 6, 9, 0),
                        datetimeUTC(1998, 12, 31, 9, 0)])
 
+test('after with endless RRULE', function () {
+    var rruleSet = rrulestr("RRULE:FREQ=DAILY;DTSTART=20150526T020000Z;INTERVAL=1;UNTIL=20200526T020000Z", {
+        forceset:true
+    })
+    var after = rruleSet.after(datetimeUTC(2015, 5, 26, 2, 0), true)
+    var before = rruleSet.before(datetimeUTC(2015, 5, 26, 2, 0), true)
+    equal(after.toString(), datetimeUTC(2015, 5, 26, 2, 0))
+    equal(before.toString(), datetimeUTC(2015, 5, 26, 2, 0))
+})
 /*
 assertRecurring('testBadBySetPos',
     self.assertRaises(ValueError,
